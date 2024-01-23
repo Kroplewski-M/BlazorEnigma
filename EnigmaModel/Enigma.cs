@@ -14,30 +14,69 @@ namespace BlazorEngimaWeb.EnigmaModel
         Rotar rotarIV = new ([25, 14, 20, 4, 18, 24, 3, 10, 5, 22, 15, 2, 8, 16, 23, 7, 12, 21, 1, 11, 6, 13, 9, 17, 0, 19], 17, 22);
         Rotar rotarV = new ([22, 26, 9, 10, 12, 13, 14, 24, 6, 25, 11, 23, 7, 8, 15, 16, 17, 18, 19, 20, 21, 1, 2, 3, 4, 5], 15, 20);
 
+        Rotar[] rotars = new Rotar[5];
+        int[] chosenRotars = new int[3];
+        public Enigma()
+        {
+            rotars[0] = rotarI;
+            rotars[1] = rotarII;
+            rotars[2] = rotarIII;
+            rotars[3] = rotarIV;
+            rotars[4] = rotarV;
+
+            chosenRotars[0] = 0;
+            chosenRotars[1] = 1;
+            chosenRotars[2] = 2;
+        }
+
         Reflector reflectorB = new ([24, 17, 20, 7, 16, 18, 11, 3, 15, 23, 13, 6, 14, 10, 12, 8, 4, 1, 5, 25, 2, 22, 21, 9, 0, 19]);
-        Plugboard plugboard = new();
+        public Plugboard plugboard = new();
         
         public char Encrypt(char letter)
         {
            letter = plugboard.Process(letter);
-            rotarI.Rotate();
-            letter = rotarI.Encrypt(letter);
-            if (rotarI.IsAtNotch())
+            rotars[chosenRotars[0]].Rotate();
+            letter = rotars[chosenRotars[0]].Encrypt(letter);
+            if (rotars[chosenRotars[0]].IsAtNotch())
             {
-                rotarII.Rotate();
+                rotars[chosenRotars[1]].Rotate();
             }
-            letter = rotarII.Encrypt(letter);
-            if (rotarII.IsAtNotch())
+            letter = rotars[chosenRotars[1]].Encrypt(letter);
+            if (rotars[chosenRotars[1]].IsAtNotch())
             {
-                rotarIII.Rotate();
+                rotars[chosenRotars[2]].Rotate();
             }
-            letter = rotarIII.Encrypt(letter);
+            letter = rotars[chosenRotars[2]].Encrypt(letter);
             letter = reflectorB.Reflect(letter);
-            letter = rotarIII.Encrypt(letter, true);
-            letter = rotarII.Encrypt(letter, true);
-            letter = rotarI.Encrypt(letter, true);
+            letter = rotars[chosenRotars[2]].Encrypt(letter, true);
+            letter = rotars[chosenRotars[1]].Encrypt(letter, true);
+            letter = rotars[chosenRotars[0]].Encrypt(letter, true);
             letter = plugboard.Process(letter);
             return letter;
+        }
+        public void SetPosition(int rotar, int position)
+        {
+            rotars[rotar].SetPosition(position);
+        }
+        public void SetNotch(int rotar, int notch)
+        {
+            rotars[rotar].SetNotch(notch);
+        }
+        public int GetPosition(int rotar)
+        {
+            return rotars[rotar].GetPosition();
+        }
+        public int GetNotch(int rotar)
+        {
+            return rotars[rotar].GetNotch();
+        }
+        public void SetRotar(int rotar, int rotarNumber)
+        {
+            chosenRotars[rotar] = rotarNumber;
+        }
+        public int GetSelectedRotar(int rotar)
+        {
+            return chosenRotars[rotar];
         }
     }
 }

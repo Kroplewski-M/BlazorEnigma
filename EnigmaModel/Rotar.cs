@@ -40,5 +40,21 @@ namespace BlazorEngimaWeb.EnigmaModel
 
             return (char)(encryptedLetter+'A');
         }
+        public void SetPosition(int position)
+        {
+            this.position = position;
+        }
+        public void SetNotch(int notch)
+        {
+            this.notch = notch;
+        }
+        public int GetPosition()
+        {
+            return position;
+        }
+        public int GetNotch()
+        {
+            return notch;
+        }
     }
 }
