@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorEnigmaWeb", "BlazorEnigmaWeb\BlazorEnigmaWeb\BlazorEnigmaWeb.csproj", "{28294B5C-1527-4FBC-BEB0-75500A5E97EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorEnigmaWeb", "BlazorEnigmaWeb\BlazorEnigmaWeb\BlazorEnigmaWeb.csproj", "{28294B5C-1527-4FBC-BEB0-75500A5E97EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorEnigmaWeb.Client", "BlazorEnigmaWeb\BlazorEnigmaWeb.Client\BlazorEnigmaWeb.Client.csproj", "{4E20C793-84C0-473D-9BCB-A15DD8B90D23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorEnigmaWeb.Client", "BlazorEnigmaWeb\BlazorEnigmaWeb.Client\BlazorEnigmaWeb.Client.csproj", "{4E20C793-84C0-473D-9BCB-A15DD8B90D23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnigmaModel", "EnigmaModel\EnigmaModel.csproj", "{C6BA58E3-13AE-4B9E-9D74-EF89A90C94C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnigmaModel", "EnigmaModel\EnigmaModel.csproj", "{C6BA58E3-13AE-4B9E-9D74-EF89A90C94C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
