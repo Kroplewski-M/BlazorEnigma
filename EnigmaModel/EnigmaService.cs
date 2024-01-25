@@ -37,5 +37,10 @@ namespace BlazorEnigmaWeb.EnigmaModel
         {
             return enigma.GetSelectedRotar(rotar);
         }
+
+        public void SetRotar(int rotar, int rotarNumber)
+        {
+            enigma.SetRotar(rotar, rotarNumber);
+        }
     }
 }

@@ -15,5 +15,6 @@ namespace BlazorEnigmaWeb.EnigmaModel
         int GetPosition(int rotar);
         int GetNotch(int notch);
         public int GetSelectedRotar(int rotar);
+        public void SetRotar(int rotar, int rotarNumber);
     }
 }
