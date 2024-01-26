@@ -56,11 +56,11 @@ namespace BlazorEngimaWeb.EnigmaModel
         }
         public void SetPosition(int rotar, int position)
         {
-            rotars[rotar].SetPosition(position);
+            rotars[chosenRotars[rotar]].SetPosition(position);
         }
         public void SetNotch(int rotar, int notch)
         {
-            rotars[rotar].SetNotch(notch);
+            rotars[chosenRotars[rotar]].SetNotch(notch);
         }
         public int GetPosition(int rotar)
         {
