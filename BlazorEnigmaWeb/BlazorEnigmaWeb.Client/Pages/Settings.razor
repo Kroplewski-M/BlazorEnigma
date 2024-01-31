@@ -111,6 +111,31 @@
             </InputSelect>
         </div>
     </div> 
+    <div class="mt-5">
+        <p class="text-light fw-bold">Plugboard:</p>
+        <p class="text-light fw-bold mt-2">Add a plug:</p>
+        <div class="d-flex">
+            <InputText class="form-control" style="width:100px" @bind-Value="plug1" placeholder="A"/>
+            <InputText class="form-control" style="width:100px" @bind-Value="plug2" placeholder="B" />
+            <button class="btn btn-primary" @onclick="()=>HandlePlugChange(plug1,plug2)">Add</button>
+        </div>
+        <p class="text-danger">@plugError</p>
+        <p class="text-light fw-bold mt-2">Current plugs:</p>
+        @if(enigmaService.GetPlugs().Count == 0)
+        {
+            <p class="text-light">No plugs programmed</p>
+        }
+        else
+        {
+            foreach (var plug in enigmaService.GetPlugs())
+            {
+                <div class="row bg-secondary rounded mt-2" style="width:100px">
+                    <p class="text-light fw-bold col-6 pt-2">@plug.Key  @plug.Value</p>
+                    <button class="btn col-1" @onclick="()=>enigmaService.RemovePlug(plug.Key,plug.Value)"><i class="bi bi-x-circle-fill text-danger"></i></button>
+                </div>
+            }
+        }
+    </div>
 </div>
 @code {
     int rotar1;
@@ -124,6 +149,10 @@
     int rotar3;
     int rotar3Position;
     int rotar3Notch;
+
+    string plug1 = "";
+    string plug2 = ""; 
+    string plugError = "";
 
     protected override void OnInitialized()
     {
@@ -195,7 +224,23 @@
             rotar3Notch = selectedValue;
         }
     }
+    private void HandlePlugChange(string plug1, string plug2)
+    {
+        char plug1Char = plug1[0];
+        char plug2Char = plug2[0];
+        plug1Char = char.ToUpper(plug1Char);
+        plug2Char = char.ToUpper(plug2Char);
+        if (!enigmaService.IsPlugged(plug1Char) && !enigmaService.IsPlugged(plug2Char))
+        {
+            enigmaService.SetPlug(plug1Char, plug2Char);
+            plugError = "";
+        }
+        else
+        {
+            plugError = "One or both of the letters are already plugged";
+        }
 
+    }
 
 
 }

@@ -16,5 +16,9 @@ namespace BlazorEnigmaWeb.EnigmaModel
         int GetNotch(int notch);
         public int GetSelectedRotar(int rotar);
         public void SetRotar(int rotar, int rotarNumber);
+        public void SetPlug(char end1, char end2);
+        public void RemovePlug(char end1, char end2);
+        public bool IsPlugged(char letter);
+        public Dictionary<char, char> GetPlugs();
     }
 }

@@ -42,5 +42,24 @@ namespace BlazorEnigmaWeb.EnigmaModel
         {
             enigma.SetRotar(rotar, rotarNumber);
         }
+
+        public void SetPlug(char end1, char end2)
+        {
+            enigma.SetPlug(end1, end2);
+        }
+
+        public void RemovePlug(char end1, char end2)
+        {
+            enigma.RemovePlug(end1, end2);
+        }
+
+        public bool IsPlugged(char letter)
+        {
+            return enigma.IsPlugged(letter);
+        }
+        public Dictionary<char, char> GetPlugs()
+        {
+            return enigma.GetPlugs();
+        }
     }
 }
