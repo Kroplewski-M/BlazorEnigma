@@ -8,6 +8,7 @@ namespace BlazorEngimaWeb.EnigmaModel
 {
     public class Enigma
     {
+        //create default rotars
         Rotar rotarI = new ([8, 2, 12, 5, 18, 10, 3, 15, 20, 25, 13, 19, 14, 22, 24, 7, 23, 21, 9, 16, 0, 4, 1, 17, 6, 11], 10, 5);
         Rotar rotarII = new ([5, 1, 15, 7, 2, 11, 17, 14, 9, 0, 18, 12, 16, 24, 23, 20, 8, 25, 22, 19, 6, 21, 10, 3, 13, 4], 0, 19);
         Rotar rotarIII = new ([15, 4, 25, 20, 14, 7, 23, 18, 2, 21, 5, 12, 19, 1, 6, 11, 17, 8, 13, 16, 0, 24, 22, 10, 3, 9], 5, 8);
@@ -21,6 +22,7 @@ namespace BlazorEngimaWeb.EnigmaModel
         public Plugboard plugboard = new();
         public Enigma()
         {
+            //set rotars
             rotars[0] = rotarI;
             rotars[1] = rotarII;
             rotars[2] = rotarIII;
@@ -32,7 +34,7 @@ namespace BlazorEngimaWeb.EnigmaModel
             chosenRotars[2] = 2;
 
         }
-
+        //encrypt a letter
         public char Encrypt(char letter)
         {
            letter = plugboard.Process(letter);

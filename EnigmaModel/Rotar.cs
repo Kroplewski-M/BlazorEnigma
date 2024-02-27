@@ -29,6 +29,7 @@ namespace BlazorEngimaWeb.EnigmaModel
         {
             return position == notch;
         }
+        //Encrypts a letter using the rotar's wiring
         public char Encrypt(char letter, bool isInverse = false)
         {
             int inputIndex = letter - 'A';
