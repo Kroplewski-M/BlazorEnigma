@@ -3,6 +3,7 @@
 @using System.ComponentModel.DataAnnotations
 @inject IEnigmaService enigmaService
 @rendermode InteractiveAuto
+@using System.Text;
 
 <PageTitle>Engima Encryption</PageTitle>
 
@@ -12,7 +13,7 @@
         <DataAnnotationsValidator />
         <div class="mb-3">
             <label for="input" class="fw-bold text-light fs-3">Input Message:</label>
-            <InputText @bind-Value="Input.Input" class="form-control" autocomplete="input" aria-required="true" placeholder="Some message" />
+            <InputTextArea @bind-Value="Input.Input" class="form-control" autocomplete="input" aria-required="true" placeholder="Some message" />
             <ValidationMessage For="() => Input.Input" class="text-danger" />
         </div>
         <button type="submit" class="w-100 btn btn-lg btn-light">Encyrpt/Decrypt <i class="bi bi-lock"></i></button>
@@ -21,8 +22,7 @@
 <div class="row">
     <div class="col-12 col-md-6 mx-auto mt-3">
         <p class="text-light fw-bold fs-3">Output Message:</p>
-        <p class="text-light fs-3">@output</p>
-
+        <p class="text-light fs-3" style="max-width: 500px;">@output</p>
     </div>
 </div>
 
@@ -31,17 +31,31 @@
     private InputModel Input { get; set; } = new();
 
     string output = "";
-
+    string input = string.Empty;
     private void HandleSubmit()
     {
         output = "";
-        string input = Input.Input;
+        input = Input.Input;
         input = input.ToUpper();
         input = input.Replace(" ", String.Empty);
+        input = input.Replace("\n", "").Replace("\r", ""); 
         foreach(char c in input)
         {
             output += enigmaService.Encrypt(c);
         }
+
+        //adding spacing to the output so its not all in one line
+        int charactersPerGroup = 30;
+        StringBuilder outputWithSpaces = new StringBuilder();
+        for (int i = 0; i < output.Length; i++)
+        {
+            outputWithSpaces.Append(output[i]);
+            if ((i + 1) % charactersPerGroup == 0 && i != output.Length - 1)
+            {
+                outputWithSpaces.Append(' '); 
+            }
+        }
+        output = outputWithSpaces.ToString();
     }
 
     private sealed class InputModel{
