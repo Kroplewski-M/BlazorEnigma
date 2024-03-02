@@ -18,7 +18,12 @@ namespace BlazorEngimaWeb.EnigmaModel
         Rotar[] rotars = new Rotar[5];
         int[] chosenRotars = new int[3];
 
+        Reflector reflectorA = new([4, 9, 12, 25, 0, 11, 24, 23, 21, 1, 22, 5, 2, 17, 16, 20, 14, 13, 19, 18, 15, 8, 10, 7, 6, 3]);
         Reflector reflectorB = new([24, 17, 20, 7, 16, 18, 11, 3, 15, 23, 13, 6, 14, 10, 12, 8, 4, 1, 5, 25, 2, 22, 21, 9, 0, 19]);
+        Reflector reflectorC = new([5, 21, 15, 9, 8, 0, 14, 24, 4, 3, 17, 25, 23, 22, 6, 2, 19, 10, 20, 16, 18, 1, 13, 12, 7, 11]);
+
+        Reflector[] reflectors = new Reflector[3];
+        int selectedReflector = 0;
         public Plugboard plugboard = new();
         public Enigma()
         {
@@ -33,6 +38,9 @@ namespace BlazorEngimaWeb.EnigmaModel
             chosenRotars[1] = 1;
             chosenRotars[2] = 2;
 
+            reflectors[0] = reflectorA;
+            reflectors[1] = reflectorB;
+            reflectors[2] = reflectorC;
         }
         //encrypt a letter
         public char Encrypt(char letter)
@@ -50,7 +58,7 @@ namespace BlazorEngimaWeb.EnigmaModel
                 rotars[chosenRotars[2]].Rotate();
             }
             letter = rotars[chosenRotars[2]].Encrypt(letter);
-            letter = reflectorB.Reflect(letter);
+            letter = reflectors[selectedReflector].Reflect(letter);
             letter = rotars[chosenRotars[2]].Encrypt(letter, true);
             letter = rotars[chosenRotars[1]].Encrypt(letter, true);
             letter = rotars[chosenRotars[0]].Encrypt(letter, true);
