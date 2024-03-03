@@ -20,5 +20,7 @@ namespace BlazorEnigmaWeb.EnigmaModel
         public void RemovePlug(char end1, char end2);
         public bool IsPlugged(char letter);
         public Dictionary<char, char> GetPlugs();
+        public int GetSelectedReflector();
+        public void SetSelectedReflector(int reflector);
     }
 }

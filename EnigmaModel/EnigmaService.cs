@@ -61,5 +61,13 @@ namespace BlazorEnigmaWeb.EnigmaModel
         {
             return enigma.GetPlugs();
         }
+        public int GetSelectedReflector()
+        {
+            return enigma.GetSelectedReflector();
+        }
+        public void SetSelectedReflector(int reflector)
+        {
+            enigma.SetSelectedReflector(reflector);
+        }
     }
 }

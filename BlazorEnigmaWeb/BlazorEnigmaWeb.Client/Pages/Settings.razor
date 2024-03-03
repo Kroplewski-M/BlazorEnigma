@@ -112,6 +112,17 @@
         </div>
     </div> 
     <div class="mt-5">
+        <p class="text-light fw-bold">Reflectors:</p>
+        <p class="text-light fw-bold">ReflectorA: [E,J,M,Z,A,L,Y,X,V,B,W,F,C,R,Q,U,O,N,T,S,P,I,K,H,G,D] </p>
+        <p class="text-light fw-bold">ReflectorB: [Y,R,U,H,Q,S,L,D,P,X,N,G,O,K,M,I,E,B,F,Z,C,W,V,J,A,T] </p>
+        <p class="text-light fw-bold">ReflectorC: [F,V,P,J,I,A,O,Y,E,D,R,Z,X,W,G,C,T,K,U,Q,S,B,N,M,H,L] </p>
+        <InputSelect class="form-select" style="width:200px" TValue="int" Value="reflector" ValueChanged="selectedvalue => HandleReflectorChange(selectedvalue)" ValueExpression="@(()=>reflector)">
+            <option value="0" selected>ReflectorA</option>
+            <option value="1">ReflectorB</option>
+            <option value="2">ReflectorC</option>
+        </InputSelect>
+    </div>
+    <div class="mt-5">
         <p class="text-light fw-bold">Plugboard:</p>
         <p class="text-light fw-bold mt-2">Add a plug:</p>
         <div class="d-flex">
@@ -154,6 +165,8 @@
     string plug2 = ""; 
     string plugError = "";
 
+    int reflector;
+
     protected override void OnInitialized()
     {
         rotar1 = enigmaService.GetSelectedRotar(0);
@@ -167,6 +180,8 @@
         rotar3 = enigmaService.GetSelectedRotar(2);
         rotar3Position = enigmaService.GetPosition(2);
         rotar3Notch = enigmaService.GetNotch(2);
+
+        reflector = enigmaService.GetSelectedReflector();
     }
 
 
@@ -241,6 +256,10 @@
         }
 
     }
-
+    private void HandleReflectorChange(int selectedValue)
+    {
+        enigmaService.SetSelectedReflector(selectedValue);
+        reflector = selectedValue;
+    }
 
 }

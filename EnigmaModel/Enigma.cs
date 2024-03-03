@@ -105,5 +105,13 @@ namespace BlazorEngimaWeb.EnigmaModel
         {
             return plugboard.GetPlugs();
         }
+        public void SetSelectedReflector(int reflector)
+        {
+            selectedReflector = reflector;
+        }
+        public int GetSelectedReflector()
+        {
+            return selectedReflector;
+        }
     }
 }
