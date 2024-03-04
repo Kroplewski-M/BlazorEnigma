@@ -8,20 +8,25 @@
 <PageTitle>Engima Encryption</PageTitle>
 
 <h1 class="text-center fw-bold text-light">Engima Encryption</h1>
+<p class="text-light fs-3 mx-auto mt-5" style="width:600px;">Select Encryption Type:</p>
+<div class="d-flex flex-column flex-md-row mx-auto" style="width:600px;">
+    <button style="width:200px;" class="btn btn-sm me-2 mb-2 mb-md-0 @(encryptionType == EncryptionType.Encrypt?"btn-primary":"btn-secondary")" @onclick="() => encryptionType = EncryptionType.Encrypt">Encrypt</button>
+    <button style="width:200px;" class="btn btn-sm @(encryptionType == EncryptionType.Decrypt?"btn-primary":"btn-secondary")" @onclick="() => encryptionType = EncryptionType.Decrypt">Decrypt</button>
+</div>
 <div class="row ">
     <EditForm Model="Input" FormName="encryption" OnValidSubmit="HandleSubmit" class="col-12 col-md-6 mx-auto mt-5">
         <DataAnnotationsValidator />
         <div class="mb-3">
-            <label for="input" class="fw-bold text-light fs-3">Input Message:</label>
+            <label for="input" class="fw-bold text-light fs-3">@(encryptionType == EncryptionType.Encrypt ? "Input Plaintext" : "Input Ciphertext"):</label>
             <InputTextArea @bind-Value="Input.Input" class="form-control" autocomplete="input" aria-required="true" placeholder="Some message" />
             <ValidationMessage For="() => Input.Input" class="text-danger" />
         </div>
-        <button type="submit" class="w-100 btn btn-lg btn-light">Encyrpt/Decrypt <i class="bi bi-lock"></i></button>
+        <button type="submit" class="w-100 btn btn-lg btn-light">@(encryptionType == EncryptionType.Encrypt ? "Encrypt" : "Decrypt") <i class="bi @(encryptionType == EncryptionType.Encrypt ? "bi-lock" : "bi-unlock")"></i> </button>
     </EditForm>
 </div>
 <div class="row">
     <div class="col-12 col-md-6 mx-auto mt-3">
-        <p class="text-light fw-bold fs-3">Output Message:</p>
+        <p class="text-light fw-bold fs-3">@(encryptionType == EncryptionType.Encrypt ? "Ciphertext output" : "Plaintext output")</p>
         <p class="text-light fs-3" style="max-width: 500px;">@output</p>
     </div>
 </div>
@@ -29,7 +34,12 @@
 @code{
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();
-
+    enum EncryptionType
+    {
+        Encrypt,
+        Decrypt
+    }
+    EncryptionType encryptionType = EncryptionType.Encrypt;
     string output = "";
     string input = string.Empty;
     private void HandleSubmit()
