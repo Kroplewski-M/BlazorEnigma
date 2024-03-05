@@ -8,7 +8,7 @@ namespace BlazorEngimaWeb.EnigmaModel
 {
     public class Rotar
     {
-        private int[] wiring;
+        private readonly int[] wiring;
         private int notch;
         private int position;
 

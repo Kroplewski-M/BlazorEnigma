@@ -9,18 +9,18 @@ namespace BlazorEngimaWeb.EnigmaModel
     public class Enigma
     {
         //create default rotars
-        Rotar rotarI = new ([4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9], 10, 5);
-        Rotar rotarII = new ([0, 9, 3, 10, 18, 8, 17, 20, 23, 1, 11, 7, 22, 19, 12, 2, 16, 6, 25, 13, 15, 24, 5, 21, 14, 4], 0, 19);
-        Rotar rotarIII = new ([1, 3, 5, 7, 9, 11, 2, 15, 17, 19, 23, 21, 25, 13, 24, 4, 8, 22, 6, 0, 10, 12, 20, 18, 16, 14], 5, 8);
-        Rotar rotarIV = new ([4, 18, 14, 21, 15, 25, 9, 0, 24, 16, 20, 8, 17, 7, 23, 11, 13, 5, 19, 6, 10, 3, 2, 12, 22, 1], 17, 22);
-        Rotar rotarV = new ([21, 25, 1, 17, 6, 8, 19, 24, 20, 15, 18, 3, 13, 7, 11, 23, 0, 22, 12, 9, 16, 14, 5, 4, 2, 10], 15, 20);
+        readonly Rotar rotarI = new ([4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9], 0, 0);
+        readonly Rotar rotarII = new ([0, 9, 3, 10, 18, 8, 17, 20, 23, 1, 11, 7, 22, 19, 12, 2, 16, 6, 25, 13, 15, 24, 5, 21, 14, 4], 0, 0);
+        readonly Rotar rotarIII = new ([1, 3, 5, 7, 9, 11, 2, 15, 17, 19, 23, 21, 25, 13, 24, 4, 8, 22, 6, 0, 10, 12, 20, 18, 16, 14], 0, 0);
+        readonly Rotar rotarIV = new ([4, 18, 14, 21, 15, 25, 9, 0, 24, 16, 20, 8, 17, 7, 23, 11, 13, 5, 19, 6, 10, 3, 2, 12, 22, 1], 0,0);
+        readonly Rotar rotarV = new ([21, 25, 1, 17, 6, 8, 19, 24, 20, 15, 18, 3, 13, 7, 11, 23, 0, 22, 12, 9, 16, 14, 5, 4, 2, 10], 0, 0);
 
-        Rotar[] rotars = new Rotar[5];
+        readonly Rotar[] rotars = new Rotar[5];
         int[] chosenRotars = new int[3];
 
-        Reflector reflectorA = new([4, 9, 12, 25, 0, 11, 24, 23, 21, 1, 22, 5, 2, 17, 16, 20, 14, 13, 19, 18, 15, 8, 10, 7, 6, 3]);
-        Reflector reflectorB = new([24, 17, 20, 7, 16, 18, 11, 3, 15, 23, 13, 6, 14, 10, 12, 8, 4, 1, 5, 25, 2, 22, 21, 9, 0, 19]);
-        Reflector reflectorC = new([5, 21, 15, 9, 8, 0, 14, 24, 4, 3, 17, 25, 23, 22, 6, 2, 19, 10, 20, 16, 18, 1, 13, 12, 7, 11]);
+        readonly Reflector reflectorA = new([4, 9, 12, 25, 0, 11, 24, 23, 21, 1, 22, 5, 2, 17, 16, 20, 14, 13, 19, 18, 15, 8, 10, 7, 6, 3]);
+        readonly Reflector reflectorB = new([24, 17, 20, 7, 16, 18, 11, 3, 15, 23, 13, 6, 14, 10, 12, 8, 4, 1, 5, 25, 2, 22, 21, 9, 0, 19]);
+        readonly Reflector reflectorC = new([5, 21, 15, 9, 8, 0, 14, 24, 4, 3, 17, 25, 23, 22, 6, 2, 19, 10, 20, 16, 18, 1, 13, 12, 7, 11]);
 
         Reflector[] reflectors = new Reflector[3];
         int selectedReflector = 0;
@@ -48,12 +48,14 @@ namespace BlazorEngimaWeb.EnigmaModel
            letter = plugboard.Process(letter);
             rotars[chosenRotars[0]].Rotate();
             letter = rotars[chosenRotars[0]].Encrypt(letter);
+            bool hasRotated = false;
             if (rotars[chosenRotars[0]].IsAtNotch())
             {
                 rotars[chosenRotars[1]].Rotate();
+                hasRotated = true;
             }
             letter = rotars[chosenRotars[1]].Encrypt(letter);
-            if (rotars[chosenRotars[1]].IsAtNotch())
+            if (hasRotated && rotars[chosenRotars[1]].IsAtNotch())
             {
                 rotars[chosenRotars[2]].Rotate();
             }
