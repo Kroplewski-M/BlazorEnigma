@@ -37,7 +37,7 @@
             <InputSelect class="form-select" style="width:200px" TValue="int" Value="rotar1Position" ValueChanged="selectedvalue => HandleRotarPositionChange(selectedvalue,0)" ValueExpression="@(()=>rotar1Position)">
                 @for (int i = 0; i <26; i++)
                 {
-                    <option value="@i">@i</option>
+                    <option value="@i">@Alphabet[i]</option>
                 }
             </InputSelect>
         </div>
@@ -46,7 +46,7 @@
             <InputSelect class="form-select" style="width:200px" TValue="int" Value="rotar1Notch" ValueChanged="selectedvalue=>HandleRotarNotchChange(selectedvalue,0)" ValueExpression="@(()=>rotar1Notch)">
                 @for (int i = 0; i < 26; i++)
                 {
-                    <option value="@i">@i</option>
+                    <option value="@i">@Alphabet[i]</option>
                 }
             </InputSelect>
         </div>
@@ -67,7 +67,7 @@
             <InputSelect class="form-select" style="width:200px" TValue="int" Value="rotar2Position" ValueChanged="selectedvalue => HandleRotarPositionChange(selectedvalue,1)" ValueExpression="@(()=>rotar2Position)">
                 @for (int i = 0; i < 26; i++)
                 {
-                    <option value="@i">@i</option>
+                    <option value="@i">@Alphabet[i]</option>
                 }
             </InputSelect>
         </div>
@@ -76,7 +76,7 @@
             <InputSelect class="form-select" style="width:200px" TValue="int" Value="rotar2Notch" ValueChanged="selectedvalue=>HandleRotarNotchChange(selectedvalue,1)" ValueExpression="@(()=>rotar2Notch)">
                 @for (int i = 0; i < 26; i++)
                 {
-                    <option value="@i">@i</option>
+                    <option value="@i">@Alphabet[i]</option>
                 }
             </InputSelect>
         </div>
@@ -97,7 +97,7 @@
             <InputSelect class="form-select" style="width:200px" TValue="int" Value="rotar3Position" ValueChanged="selectedvalue => HandleRotarPositionChange(selectedvalue,2)" ValueExpression="@(()=>rotar3Position)">
                 @for (int i = 0; i < 26; i++)
                 {
-                    <option value="@i">@i</option>
+                    <option value="@i">@Alphabet[i]</option>
                 }
             </InputSelect>
         </div>
@@ -106,7 +106,7 @@
             <InputSelect class="form-select" style="width:200px" TValue="int" Value="rotar3Notch" ValueChanged="selectedvalue=>HandleRotarNotchChange(selectedvalue,2)" ValueExpression="@(()=>rotar3Notch)">
                 @for (int i = 0; i < 26; i++)
                 {
-                    <option value="@i">@i</option>
+                    <option value="@i">@Alphabet[i]</option>
                 }
             </InputSelect>
         </div>
@@ -166,7 +166,7 @@
     string plugError = "";
 
     int reflector;
-
+    char[] Alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     protected override void OnInitialized()
     {
         rotar1 = enigmaService.GetSelectedRotar(0);
@@ -239,21 +239,32 @@
             rotar3Notch = selectedValue;
         }
     }
-    private void HandlePlugChange(string plug1, string plug2)
+    private void HandlePlugChange(string plug1="", string plug2="")
     {
+        if (String.IsNullOrEmpty(plug1) || String.IsNullOrEmpty(plug2))
+        {
+            plugError = "Both of the letters need to be inserted";
+            return;
+        }
         char plug1Char = plug1[0];
         char plug2Char = plug2[0];
+
         plug1Char = char.ToUpper(plug1Char);
         plug2Char = char.ToUpper(plug2Char);
-        if (!enigmaService.IsPlugged(plug1Char) && !enigmaService.IsPlugged(plug2Char))
+        if(plug1Char == plug2Char)
         {
-            enigmaService.SetPlug(plug1Char, plug2Char);
-            plugError = "";
+            plugError = "The letters can't be the same";
+            return;
         }
-        else
+        else if (!enigmaService.IsPlugged(plug1Char) && enigmaService.IsPlugged(plug2Char) || enigmaService.IsPlugged(plug1Char) && !enigmaService.IsPlugged(plug2Char))
         {
-            plugError = "One or both of the letters are already plugged";
+            plugError = "One of the letters is already plugged";
+            return;
         }
+
+        enigmaService.SetPlug(plug1Char, plug2Char);
+        plugError = "";
+        return;
 
     }
     private void HandleReflectorChange(int selectedValue)
