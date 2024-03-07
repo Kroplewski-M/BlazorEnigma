@@ -54,20 +54,33 @@ namespace BlazorEnigma.Tests
 
         }
         [Fact]
-        public void CheckIfEncryptionIsCorrectAfterEachRotor()
+        public void CheckIfEncryptionIsCorrect()
         {
-            _enigmaService.SetPosition(0, 0);
-            _enigmaService.SetPosition(1, 0);
+            Assert.Equal('B', _enigmaService.Encrypt('A'));
             _enigmaService.SetPosition(2, 0);
+            _enigmaService.SetPosition(1, 0);
+            _enigmaService.SetPosition(0, 0);
+            Assert.Equal('K', _enigmaService.Encrypt('W'));
+            _enigmaService.SetPosition(2, 0);
+            _enigmaService.SetPosition(1, 0);
+            _enigmaService.SetPosition(0, 0);
+            Assert.Equal('I', _enigmaService.Encrypt('H'));
+            _enigmaService.SetPosition(2, 0);
+            _enigmaService.SetPosition(1, 0);
+            _enigmaService.SetPosition(0, 0);
+            Assert.Equal('R', _enigmaService.Encrypt('V'));
+        }
+        [Fact]
+        public void CheckIfWordsAreBeingEncryptedCorrectly()
+        {
+            var word = "HELLO";
+            var output = "";
 
-
-            _enigmaService.SetNotch(0, 16);
-            _enigmaService.SetNotch(1, 4);
-            _enigmaService.SetNotch(2, 21);
-
-            Assert.Equal('C', _enigmaService.GetRotar(2).Encrypt('A'));
-            Assert.Equal('D', _enigmaService.GetRotar(1).Encrypt('C'));
-
+            foreach (char c in word)
+            {
+                output += _enigmaService.Encrypt(c);
+            }
+            Assert.Equal("ILBDA", output);
         }
     }
 }
