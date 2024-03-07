@@ -53,25 +53,21 @@ namespace BlazorEnigma.Tests
             Assert.Equal(0, _enigmaService.GetPosition(2));
 
         }
-        //[Fact]
-        //public void CheckIfCorrectEncryption()
-        //{
-        //    _enigmaService.SetSelectedReflector(0);
-
-        //    _enigmaService.SetPosition(0, 0);
-        //    _enigmaService.SetPosition(1, 0);
-        //    _enigmaService.SetPosition(2, 0);
-
-        //    _enigmaService.SetNotch(0, 16);
-        //    _enigmaService.SetNotch(1, 4);
-        //    _enigmaService.SetNotch(2, 21);
-
-        //    _enigmaService.SetPlug('A', 'R');
-        //    _enigmaService.SetPlug('G', 'K');
-        //    _enigmaService.SetPlug('O', 'X');
+        [Fact]
+        public void CheckIfEncryptionIsCorrectAfterEachRotor()
+        {
+            _enigmaService.SetPosition(0, 0);
+            _enigmaService.SetPosition(1, 0);
+            _enigmaService.SetPosition(2, 0);
 
 
-        //    Assert.Equal('X', _enigmaService.Encrypt('A'));
-        //}
+            _enigmaService.SetNotch(0, 16);
+            _enigmaService.SetNotch(1, 4);
+            _enigmaService.SetNotch(2, 21);
+
+            Assert.Equal('C', _enigmaService.GetRotar(2).Encrypt('A'));
+            Assert.Equal('D', _enigmaService.GetRotar(1).Encrypt('C'));
+
+        }
     }
 }

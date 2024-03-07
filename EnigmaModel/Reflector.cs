@@ -8,17 +8,14 @@ namespace BlazorEngimaWeb.EnigmaModel
 {
     public class Reflector
     {
-        private int[] wiring;
-        public Reflector(int[] wiring)
+        private string Wiring;
+        public Reflector(string wiring)
         {
-            this.wiring = wiring;
+            this.Wiring = wiring;
         }
-        public char Reflect(char letter)
+        public char Reflect(char input)
         {
-            int inputIndex = letter - 'A';
-            int outputIndex = wiring[inputIndex];
-            int reflectedLetter = (char)(outputIndex + 'A');
-            return (char)reflectedLetter;
+            return Wiring[input - 'A'];
         }
     }
 }

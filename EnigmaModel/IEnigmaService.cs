@@ -22,5 +22,6 @@ namespace BlazorEnigmaWeb.EnigmaModel
         public Dictionary<char, char> GetPlugs();
         public int GetSelectedReflector();
         public void SetSelectedReflector(int reflector);
+        public Rotar GetRotar(int rotar);
     }
 }

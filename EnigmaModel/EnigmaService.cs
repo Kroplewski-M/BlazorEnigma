@@ -69,5 +69,9 @@ namespace BlazorEnigmaWeb.EnigmaModel
         {
             enigma.SetSelectedReflector(reflector);
         }
+        public Rotar GetRotar(int rotar)
+        {
+            return enigma.GetRotar(rotar);
+        }
     }
 }
